@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/controller/RegisterController.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/view/SemuaAkunView.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/dao/DBConnection.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/controller/LoginController.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/view/TentangView.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/controller/CredentialController.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/component/RoundedPanel.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/model/Credential.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/model/User.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/view/DashboardView.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/controller/SemuaAkunController.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/dao/UserDAO.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/view/RegisterView.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/view/CredentialFormDialog.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/controller/PengaturanController.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/model/BaseCredential.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/view/PengaturanView.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/view/LoginView.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/main/Main.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/dao/CredentialDAO.java</file>
+            <file>file:/D:/vana/semester%204/praktikum%20PBO/ProjectPrakPBO-main/src/component/RoundedButton.java</file>
+        </group>
+    </open-files>
+</project-private>

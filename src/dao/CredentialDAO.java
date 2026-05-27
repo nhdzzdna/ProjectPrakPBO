@@ -3,7 +3,6 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -30,37 +29,40 @@ public class CredentialDAO {
 
             String query =
                     "INSERT INTO credentials "
-                    + "(platform, username, password, keterangan) "
-                    + "VALUES (?, ?, ?, ?)";
+                    + "(user_id, platform, username, password, keterangan) "
+                    + "VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement statement =
                     conn.prepareStatement(query);
 
-            statement.setString(
+            statement.setInt(
                     1,
-                    credential.getPlatform()
+                    credential.getUserId()
             );
 
             statement.setString(
                     2,
-                    credential.getUsername()
+                    credential.getPlatform()
             );
 
             statement.setString(
                     3,
-                    credential.encrypt()
+                    credential.getUsername()
             );
 
             statement.setString(
                     4,
+                    credential.encrypt()
+            );
+
+            statement.setString(
+                    5,
                     credential.getKeterangan()
             );
 
             statement.executeUpdate();
 
             statement.close();
-
-            System.out.println("Data berhasil ditambah!");
 
         } catch (SQLException e) {
 
@@ -73,27 +75,30 @@ public class CredentialDAO {
     // READ
     // ====================
 
-    public List<Credential> getAll() {
+    public List<Credential> getAll(int userId) {
 
         List<Credential> listCredential =
                 new ArrayList<>();
 
         try {
 
-            Statement statement =
-                    conn.createStatement();
-
             String query =
-                    "SELECT * FROM credentials";
+                    "SELECT * FROM credentials WHERE user_id=?";
+
+            PreparedStatement statement =
+                    conn.prepareStatement(query);
+
+            statement.setInt(1, userId);
 
             ResultSet resultSet =
-                    statement.executeQuery(query);
+                    statement.executeQuery();
 
             while (resultSet.next()) {
 
                 Credential credential =
                         new Credential(
                                 resultSet.getInt("id"),
+                                resultSet.getInt("user_id"),
                                 resultSet.getString("platform"),
                                 resultSet.getString("username"),
                                 resultSet.getString("password"),
@@ -128,7 +133,7 @@ public class CredentialDAO {
                     + "username=?, "
                     + "password=?, "
                     + "keterangan=? "
-                    + "WHERE id=?";
+                    + "WHERE id=? AND user_id=?";
 
             PreparedStatement statement =
                     conn.prepareStatement(query);
@@ -158,11 +163,14 @@ public class CredentialDAO {
                     credential.getId()
             );
 
+            statement.setInt(
+                    6,
+                    credential.getUserId()
+            );
+
             statement.executeUpdate();
 
             statement.close();
-
-            System.out.println("Data berhasil diupdate!");
 
         } catch (SQLException e) {
 
@@ -175,23 +183,24 @@ public class CredentialDAO {
     // DELETE
     // ====================
 
-    public void delete(int id) {
+    public void delete(int id, int userId) {
 
         try {
 
             String query =
-                    "DELETE FROM credentials WHERE id=?";
+                    "DELETE FROM credentials "
+                    + "WHERE id=? AND user_id=?";
 
             PreparedStatement statement =
                     conn.prepareStatement(query);
 
             statement.setInt(1, id);
 
+            statement.setInt(2, userId);
+
             statement.executeUpdate();
 
             statement.close();
-
-            System.out.println("Data berhasil dihapus!");
 
         } catch (SQLException e) {
 

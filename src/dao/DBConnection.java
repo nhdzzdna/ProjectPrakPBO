@@ -9,7 +9,7 @@ public class DBConnection {
     // SESUAIKAN 3 BARIS INI DENGAN KONFIGURASI XAMPP KAMU
     // =====================================================
     private static final String NAMA_DB  = "passkeeper_db";   // nama database tanpa (1)
-    private static final String PORT     = "8111";             // port default XAMPP = 3306
+    private static final String PORT     = "3306";             // port default XAMPP = 3306
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     // =====================================================

@@ -3,11 +3,13 @@ package model;
 public class Credential extends BaseCredential {
 
     private int id;
+    private int userId;
     private String keterangan;
 
     // Constructor
     public Credential(
             int id,
+            int userId,
             String platform,
             String username,
             String password,
@@ -17,6 +19,7 @@ public class Credential extends BaseCredential {
         super(platform, username, password);
 
         this.id = id;
+        this.userId = userId;
         this.keterangan = keterangan;
     }
 
@@ -27,6 +30,14 @@ public class Credential extends BaseCredential {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getKeterangan() {

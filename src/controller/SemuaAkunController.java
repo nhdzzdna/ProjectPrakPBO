@@ -3,6 +3,7 @@ package controller;
 import dao.CredentialDAO;
 import model.Credential;
 import view.SemuaAkunView;
+import model.User;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -15,10 +16,12 @@ public class SemuaAkunController {
     private SemuaAkunView view;
     private CredentialDAO dao;
     private TableRowSorter<DefaultTableModel> sorter;
-
-    public SemuaAkunController(SemuaAkunView view) {
+    private User currentUser;
+    
+    public SemuaAkunController(SemuaAkunView view, User user) {
         this.view = view;
         this.dao  = new CredentialDAO();
+        this.currentUser = user;
 
         loadTable();
         initSearch();
@@ -33,7 +36,7 @@ public class SemuaAkunController {
         DefaultTableModel model = view.tableModel;
         model.setRowCount(0);
 
-        List<Credential> list = dao.getAll();
+        List<Credential> list = dao.getAll(currentUser.getId());
 
         for (Credential c : list) {
             Object[] row = {

@@ -3,6 +3,7 @@ package controller;
 import dao.CredentialDAO;
 
 import model.Credential;
+import model.User;
 
 import view.CredentialFormDialog;
 import view.DashboardView;
@@ -28,6 +29,8 @@ public class CredentialController {
     private DashboardView view;
 
     private CredentialDAO dao;
+    
+    private User currentUser;
 
     private int selectedId = -1;
 
@@ -36,16 +39,23 @@ public class CredentialController {
     private SemuaAkunController  semuaAkunController;
     private PengaturanController pengaturanController;
 
-    public CredentialController(DashboardView view) {
+    public CredentialController(DashboardView view, User user) {
 
         this.view = view;
+        this.currentUser = user;
 
         dao = new CredentialDAO();
 
-        // Inisialisasi sub-controller untuk menu sidebar
-        semuaAkunController  = new SemuaAkunController(view.semuaAkunView);
+        semuaAkunController  = new SemuaAkunController(
+                view.semuaAkunView,
+                currentUser
+        );
+
         pengaturanController = new PengaturanController(
-                view.pengaturanView, view, view.pengaturanView.txtUsername.getText());
+                view.pengaturanView,
+                view,
+                view.pengaturanView.txtUsername.getText()
+        );
 
         loadTable();
 
@@ -130,7 +140,7 @@ public class CredentialController {
 
         model.setRowCount(0);
 
-        List<Credential> list = dao.getAll();
+        List<Credential> list = dao.getAll(currentUser.getId());
 
         for (Credential c : list) {
 
@@ -191,7 +201,14 @@ public class CredentialController {
             }
 
             Credential credential =
-                    new Credential(0, platform, username, password, keterangan);
+                    new Credential(
+                            0,
+                            currentUser.getId(),
+                            platform,
+                            username,
+                            password,
+                            keterangan
+                    );
 
             dao.insert(credential);
 
@@ -275,7 +292,14 @@ public class CredentialController {
             }
 
             Credential credential =
-                    new Credential(selectedId, platform, username, password, keterangan);
+                    new Credential(
+                            selectedId,
+                            currentUser.getId(),
+                            platform,
+                            username,
+                            password,
+                            keterangan
+                    );
 
             dao.update(credential);
 
@@ -344,7 +368,7 @@ public class CredentialController {
 
         if (confirm != JOptionPane.YES_OPTION) return;
 
-        dao.delete(selectedId);
+        dao.delete(selectedId, currentUser.getId());
 
         loadTable();
 

@@ -84,7 +84,7 @@ public class LoginController {
                     user.getEmail()
             );
 
-            new CredentialController(dashboard);
+            new CredentialController(dashboard, user);
 
             // Tutup login
             view.dispose();

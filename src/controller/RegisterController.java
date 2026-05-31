@@ -42,6 +42,56 @@ public class RegisterController {
         view.btnKembali.addActionListener(e -> {
             goToLogin();
         });
+        
+        setupHint(view.txtNamaLengkap, "Nama Lengkap");
+        setupHint(view.txtUsername, "Username");
+        setupHint(view.txtEmail, "Email");
+        setupHintPassword(view.txtPassword, "Password");
+        setupHintPassword(view.txtKonfirmasi, "Konfirmasi Password");
+
+        view.btnDaftar.addActionListener(e -> register());
+        view.btnKembali.addActionListener(e -> goToLogin());
+    }
+
+    private void setupHint(javax.swing.JTextField field, String hint) {
+        field.setForeground(java.awt.Color.GRAY);
+        field.setText(hint);
+        field.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (field.getText().equals(hint)) {
+                    field.setText("");
+                    field.setForeground(java.awt.Color.BLACK);
+                }
+            }
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (field.getText().isEmpty()) {
+                    field.setForeground(java.awt.Color.GRAY);
+                    field.setText(hint);
+                }
+            }
+        });
+    }
+
+    private void setupHintPassword(javax.swing.JPasswordField field, String hint) {
+        field.setEchoChar((char) 0);
+        field.setForeground(java.awt.Color.GRAY);
+        field.setText(hint);
+        field.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (String.valueOf(field.getPassword()).equals(hint)) {
+                    field.setText("");
+                    field.setForeground(java.awt.Color.BLACK);
+                    field.setEchoChar('●');
+                }
+            }
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (String.valueOf(field.getPassword()).isEmpty()) {
+                    field.setEchoChar((char) 0);
+                    field.setForeground(java.awt.Color.GRAY);
+                    field.setText(hint);
+                }
+            }
+        });
     }
 
     // ====================

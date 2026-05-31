@@ -22,55 +22,46 @@ public class CredentialFormDialog extends JDialog {
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
 
-        Color tealColor = new Color(0, 150, 136);
-        Color redColor  = new Color(220, 53, 69);
-        Color bgColor   = new Color(248, 250, 252);
+        Color navyColor  = new Color(0, 51, 102);
+        Color yellowColor = new Color(255, 255, 192);
+        Color redColor   = new Color(180, 50, 50);
 
-        Font labelFont  = new Font("Poppins", Font.BOLD,  13);
-        Font inputFont  = new Font("Poppins", Font.PLAIN, 13);
+        Font labelFont = new Font("Century Gothic", Font.BOLD,  13);
+        Font inputFont = new Font("Century Gothic", Font.PLAIN, 13);
 
-        // ====================
         // PANEL FORM
-        // ====================
-
         JPanel form = new JPanel();
         form.setBackground(Color.WHITE);
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
         form.setBorder(BorderFactory.createEmptyBorder(30, 35, 20, 35));
 
-        // JUDUL DIALOG
-
+        // JUDUL
         JLabel lblJudul = new JLabel(judul);
-        lblJudul.setFont(new Font("Poppins", Font.BOLD, 18));
-        lblJudul.setForeground(new Color(30, 30, 30));
+        lblJudul.setFont(new Font("Century Gothic", Font.BOLD, 18));
+        lblJudul.setForeground(navyColor);
         lblJudul.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         form.add(lblJudul);
         form.add(Box.createRigidArea(new Dimension(0, 22)));
 
         // Aplikasi / Akun
-
-        form.add(createLabel("Aplikasi / Akun", labelFont));
+        form.add(createLabel("Aplikasi / Akun", labelFont, navyColor));
         form.add(Box.createRigidArea(new Dimension(0, 5)));
-
         txtPlatform = new JTextField();
-        styleField(txtPlatform, inputFont);
+        styleField(txtPlatform, inputFont, navyColor);
         form.add(txtPlatform);
         form.add(Box.createRigidArea(new Dimension(0, 14)));
 
         // Username
-
-        form.add(createLabel("Username", labelFont));
+        form.add(createLabel("Username", labelFont, navyColor));
         form.add(Box.createRigidArea(new Dimension(0, 5)));
-
         txtUsername = new JTextField();
-        styleField(txtUsername, inputFont);
+        styleField(txtUsername, inputFont, navyColor);
         form.add(txtUsername);
         form.add(Box.createRigidArea(new Dimension(0, 14)));
 
-        // Password + Show/Hide
-
-        form.add(createLabel("Password", labelFont));
+        // Password
+        form.add(createLabel("Password", labelFont, navyColor));
         form.add(Box.createRigidArea(new Dimension(0, 5)));
 
         JPanel passPanel = new JPanel(new BorderLayout(6, 0));
@@ -81,52 +72,49 @@ public class CredentialFormDialog extends JDialog {
         txtPassword = new JPasswordField();
         txtPassword.setFont(inputFont);
         txtPassword.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(210, 210, 210), 1),
+                BorderFactory.createLineBorder(navyColor, 1),
                 BorderFactory.createEmptyBorder(10, 12, 10, 12)
         ));
 
         btnShowPassword = new JButton("Show");
-        btnShowPassword.setFont(new Font("Poppins", Font.PLAIN, 12));
-        btnShowPassword.setBackground(new Color(240, 240, 240));
+        btnShowPassword.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+        btnShowPassword.setBackground(navyColor);
+        btnShowPassword.setForeground(yellowColor);
         btnShowPassword.setFocusPainted(false);
+        btnShowPassword.setBorderPainted(false);
         btnShowPassword.setPreferredSize(new Dimension(70, 45));
 
-        passPanel.add(txtPassword,    BorderLayout.CENTER);
+        passPanel.add(txtPassword,     BorderLayout.CENTER);
         passPanel.add(btnShowPassword, BorderLayout.EAST);
 
         form.add(passPanel);
         form.add(Box.createRigidArea(new Dimension(0, 14)));
 
         // Keterangan
-
-        form.add(createLabel("Keterangan", labelFont));
+        form.add(createLabel("Keterangan", labelFont, navyColor));
         form.add(Box.createRigidArea(new Dimension(0, 5)));
-
         txtKeterangan = new JTextField();
-        styleField(txtKeterangan, inputFont);
+        styleField(txtKeterangan, inputFont, navyColor);
         form.add(txtKeterangan);
         form.add(Box.createRigidArea(new Dimension(0, 26)));
 
-        // ====================
         // TOMBOL
-        // ====================
-
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         btnPanel.setOpaque(false);
 
-        btnBatal = new JButton("✕  Batal");
-        btnBatal.setFont(new Font("Poppins", Font.PLAIN, 13));
-        btnBatal.setBackground(new Color(240, 240, 240));
-        btnBatal.setForeground(new Color(80, 80, 80));
+        btnBatal = new JButton("Batal");
+        btnBatal.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        btnBatal.setBackground(new Color(200, 210, 230));
+        btnBatal.setForeground(navyColor);
         btnBatal.setFocusPainted(false);
         btnBatal.setBorderPainted(false);
         btnBatal.setPreferredSize(new Dimension(110, 40));
         btnBatal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        btnSimpan = new JButton("💾  Simpan");
-        btnSimpan.setFont(new Font("Poppins", Font.BOLD, 13));
-        btnSimpan.setBackground(tealColor);
-        btnSimpan.setForeground(Color.WHITE);
+        btnSimpan = new JButton("Simpan");
+        btnSimpan.setFont(new Font("Century Gothic", Font.BOLD, 13));
+        btnSimpan.setBackground(navyColor);
+        btnSimpan.setForeground(yellowColor);
         btnSimpan.setFocusPainted(false);
         btnSimpan.setBorderPainted(false);
         btnSimpan.setPreferredSize(new Dimension(120, 40));
@@ -136,26 +124,23 @@ public class CredentialFormDialog extends JDialog {
         btnPanel.add(btnSimpan);
 
         form.add(btnPanel);
-
         add(form, BorderLayout.CENTER);
     }
 
-    private JLabel createLabel(String text, Font font) {
-
+    private JLabel createLabel(String text, Font font, Color color) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(font);
-        lbl.setForeground(new Color(50, 50, 50));
+        lbl.setForeground(color);
         lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         return lbl;
     }
 
-    private void styleField(JTextField field, Font font) {
-
+    private void styleField(JTextField field, Font font, Color borderColor) {
         field.setFont(font);
         field.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
         field.setAlignmentX(Component.LEFT_ALIGNMENT);
         field.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(210, 210, 210), 1),
+                BorderFactory.createLineBorder(borderColor, 1),
                 BorderFactory.createEmptyBorder(10, 12, 10, 12)
         ));
     }

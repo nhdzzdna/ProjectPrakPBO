@@ -1,301 +1,273 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package view;
 
-import component.RoundedButton;
-import component.RoundedPanel;
+/**
+ *
+ * @author ASUS
+ */
+public class LoginView extends javax.swing.JFrame {
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
-public class LoginView extends JFrame {
-
-    public JTextField     txtUsername;
-    public JPasswordField txtPassword;
-    public JButton        btnLogin;
-    public JButton        btnDaftar;
-
-    // ══════════════════════════════════════════════════════
-    // INNER CLASS: HintTextField  (ikon + placeholder hint)
-    // ══════════════════════════════════════════════════════
-    static class HintTextField extends JTextField {
-
-        private final String hint;
-        private final String iconText;
-
-        HintTextField(String hint, String iconText, Font font) {
-            this.hint     = hint;
-            this.iconText = iconText;
-            setFont(font);
-            setBackground(new Color(250, 250, 250));
-            setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(new Color(225, 225, 225), 1),
-                    BorderFactory.createEmptyBorder(18, 14, 18, 14)
-            ));
-            setMaximumSize(new Dimension(Integer.MAX_VALUE, 62));
-            setForeground(Color.GRAY);
-            setText(hint);
-
-            addFocusListener(new FocusAdapter() {
-                @Override public void focusGained(FocusEvent e) {
-                    if (getText().equals(hint)) {
-                        setText("");
-                        setForeground(new Color(40, 40, 40));
-                    }
-                }
-                @Override public void focusLost(FocusEvent e) {
-                    if (getText().isEmpty()) {
-                        setForeground(Color.GRAY);
-                        setText(hint);
-                    }
-                }
-            });
-        }
-
-        /** Kembalikan null / "" jika field masih berisi teks hint */
-        public String getRealText() {
-            String t = getText();
-            return t.equals(hint) ? "" : t;
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            // gambar ikon emoji di sisi kiri
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2.setFont(new Font("SansSerif", Font.PLAIN, 16));
-            g2.setColor(new Color(100, 100, 100));
-            FontMetrics fm = g2.getFontMetrics();
-            int y = (getHeight() + fm.getAscent() - fm.getDescent()) / 2;
-            g2.drawString(iconText, 14, y);
-            g2.dispose();
-        }
-    }
-
-    // ══════════════════════════════════════════════════════
-    // INNER CLASS: HintPasswordField  (ikon + placeholder hint)
-    // ══════════════════════════════════════════════════════
-    static class HintPasswordField extends JPasswordField {
-
-        private final String hint;
-        private final String iconText;
-        private boolean      showingHint = true;
-
-        HintPasswordField(String hint, String iconText, Font font) {
-            this.hint     = hint;
-            this.iconText = iconText;
-            setFont(font);
-            setBackground(new Color(250, 250, 250));
-            setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(new Color(225, 225, 225), 1),
-                    BorderFactory.createEmptyBorder(18, 14, 18, 14)
-            ));
-            setMaximumSize(new Dimension(Integer.MAX_VALUE, 62));
-
-            // Tampilkan hint sebagai teks biasa (bukan titik)
-            setEchoChar((char) 0);
-            setForeground(Color.GRAY);
-            setText(hint);
-
-            addFocusListener(new FocusAdapter() {
-                @Override public void focusGained(FocusEvent e) {
-                    if (showingHint) {
-                        setText("");
-                        setForeground(new Color(40, 40, 40));
-                        setEchoChar('●');
-                        showingHint = false;
-                    }
-                }
-                @Override public void focusLost(FocusEvent e) {
-                    if (new String(getPassword()).isEmpty()) {
-                        showingHint = true;
-                        setEchoChar((char) 0);
-                        setForeground(Color.GRAY);
-                        setText(hint);
-                    }
-                }
-            });
-        }
-
-        /** Kembalikan password asli (kosong jika masih hint) */
-        public char[] getRealPassword() {
-            return showingHint ? new char[0] : getPassword();
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2.setFont(new Font("SansSerif", Font.PLAIN, 16));
-            g2.setColor(new Color(100, 100, 100));
-            FontMetrics fm = g2.getFontMetrics();
-            int y = (getHeight() + fm.getAscent() - fm.getDescent()) / 2;
-            g2.drawString(iconText, 14, y);
-            g2.dispose();
-        }
-    }
-
-    // ══════════════════════════════════════════════════════
-    // KONSTRUKTOR
-    // ══════════════════════════════════════════════════════
+    /**
+     * Creates new form LoginView
+     */
     public LoginView() {
+        initComponents();
 
-        setTitle("PassKeeper");
-        setSize(1350, 800);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE); // ← tambah ini
 
-        // COLOR
-        Color backgroundColor = new Color(240, 249, 248);
-        Color leftColor       = new Color(209, 242, 238);
-        Color tealColor       = new Color(0, 150, 136);
-        Color darkTeal        = new Color(0, 121, 107);
-        Color textGray        = new Color(120, 120, 120);
+        jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", java.awt.Font.PLAIN, 90));
+        btnDaftar.setBackground(new java.awt.Color(252, 252, 252));
+        btnDaftar.setContentAreaFilled(false);
+        txtUsername.setText("Username");
+        txtPassword.setText("Password");
 
-        // FONT
-        Font titleFont    = new Font("Poppins", Font.BOLD, 40);
-        Font subtitleFont = new Font("Poppins", Font.PLAIN, 16);
-        Font normalFont   = new Font("Poppins", Font.PLAIN, 15);
-
-        // MAIN PANEL
-        JPanel mainPanel = new JPanel(new GridLayout(1, 2));
-
-        // ── LEFT PANEL ──────────────────────────────────
-        JPanel leftPanel = new JPanel() {
-            @Override protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                                    RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(new Color(255, 255, 255, 80));
-                g2.fillOval(40,  40,  160, 160);
-                g2.fillOval(350, 70,  120, 120);
-                g2.fillOval(120, 500, 220, 220);
-                g2.fillOval(420, 420, 100, 100);
-            }
-        };
-        leftPanel.setBackground(leftColor);
-        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-        leftPanel.setBorder(BorderFactory.createEmptyBorder(60, 60, 60, 60));
-
-        JLabel shieldIcon = new JLabel("🔐");
-        shieldIcon.setFont(new Font("SansSerif", Font.PLAIN, 150));
-        shieldIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel lblBrand = new JLabel("PassKeeper");
-        lblBrand.setFont(titleFont);
-        lblBrand.setForeground(darkTeal);
-        lblBrand.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel lblDescription = new JLabel(
-                "<html><center>Kelola password dengan aman<br>dan modern</center></html>");
-        lblDescription.setFont(subtitleFont);
-        lblDescription.setForeground(textGray);
-        lblDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
-
-        leftPanel.add(Box.createRigidArea(new Dimension(0, 120)));
-        leftPanel.add(shieldIcon);
-        leftPanel.add(Box.createRigidArea(new Dimension(0, 25)));
-        leftPanel.add(lblBrand);
-        leftPanel.add(Box.createRigidArea(new Dimension(0, 12)));
-        leftPanel.add(lblDescription);
-
-        // ── RIGHT PANEL ─────────────────────────────────
-        JPanel rightPanel = new JPanel(new GridBagLayout());
-        rightPanel.setBackground(backgroundColor);
-
-        // LOGIN CARD
-        RoundedPanel loginCard = new RoundedPanel(45);
-        loginCard.setBackground(Color.WHITE);
-        loginCard.setPreferredSize(new Dimension(500, 660));
-        loginCard.setLayout(new BoxLayout(loginCard, BoxLayout.Y_AXIS));
-        loginCard.setBorder(BorderFactory.createEmptyBorder(55, 55, 55, 55));
-
-        // Title
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        titlePanel.setOpaque(false);
-        JLabel lblTitle1 = new JLabel("Selamat Datang");
-        lblTitle1.setFont(new Font("Poppins", Font.BOLD, 28));
-        lblTitle1.setForeground(new Color(40, 40, 40));
-        JLabel lblHand = new JLabel(" !");
-        lblHand.setFont(new Font("SansSerif", Font.PLAIN, 28));
-        titlePanel.add(lblTitle1);
-        titlePanel.add(lblHand);
-
-        JLabel lblTitle2 = new JLabel("di PassKeeper");
-        lblTitle2.setFont(new Font("Poppins", Font.BOLD, 30));
-        lblTitle2.setForeground(new Color(0, 150, 136));
-        lblTitle2.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel lblSubtitle = new JLabel("Kelola semua akun Anda dengan aman");
-        lblSubtitle.setFont(subtitleFont);
-        lblSubtitle.setForeground(textGray);
-        lblSubtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // ★ INPUT dengan ikon + hint ★
-        // Buat dengan padding kiri ekstra supaya teks tidak nabrak ikon
-        txtUsername = new HintTextField("  Username", "👤", normalFont) {{
-            setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(new Color(225, 225, 225), 1),
-                    BorderFactory.createEmptyBorder(18, 40, 18, 14)   // kiri 40 = ruang ikon
-            ));
-        }};
-
-        txtPassword = new HintPasswordField("  Password", "🔒", normalFont) {{
-            setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(new Color(225, 225, 225), 1),
-                    BorderFactory.createEmptyBorder(18, 40, 18, 14)
-            ));
-        }};
-
-        // Button Login
-        btnLogin = new RoundedButton("Login", tealColor);
-        btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 65));
-        btnLogin.setPreferredSize(new Dimension(340, 65));
-        btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Button Daftar (link style)
-        btnDaftar = new JButton("Belum punya akun? Daftar di sini");
-        btnDaftar.setFont(new Font("Poppins", Font.PLAIN, 13));
-        btnDaftar.setBackground(Color.WHITE);
-        btnDaftar.setForeground(tealColor);
-        btnDaftar.setFocusPainted(false);
-        btnDaftar.setBorderPainted(false);
-        btnDaftar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnDaftar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        // Info
-        JLabel lblInfo = new JLabel("🛡 Masukkan username dan password untuk melanjutkan");
-        lblInfo.setFont(new Font("Poppins", Font.PLAIN, 12));
-        lblInfo.setForeground(textGray);
-        lblInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Susun komponen
-        loginCard.add(titlePanel);
-        loginCard.add(Box.createRigidArea(new Dimension(0, -15)));
-        loginCard.add(lblTitle2);
-        loginCard.add(Box.createRigidArea(new Dimension(0, 18)));
-        loginCard.add(lblSubtitle);
-        loginCard.add(Box.createRigidArea(new Dimension(0, 55)));
-        loginCard.add(txtUsername);
-        loginCard.add(Box.createRigidArea(new Dimension(0, 25)));
-        loginCard.add(txtPassword);
-        loginCard.add(Box.createRigidArea(new Dimension(0, 40)));
-        loginCard.add(btnLogin);
-        loginCard.add(Box.createRigidArea(new Dimension(0, 18)));
-        loginCard.add(btnDaftar);
-        loginCard.add(Box.createRigidArea(new Dimension(0, 20)));
-        loginCard.add(lblInfo);
-
-        rightPanel.add(loginCard);
-
-        mainPanel.add(leftPanel);
-        mainPanel.add(rightPanel);
-        add(mainPanel);
-        setVisible(true);
+        txtUsername.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 102), 1, true),
+            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        txtPassword.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 102), 1, true),
+            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        btnLogin = new javax.swing.JButton();
+        btnDaftar = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 192));
+        jLabel1.setText(" 🔐 ");
+        jLabel1.setToolTipText("");
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 192));
+        jLabel2.setText("PassKeeper");
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 192));
+
+        jPanel3.setBackground(new java.awt.Color(252, 252, 252));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 102), 1, true));
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel3.setText("Selamat Datang !");
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel4.setText("di PassKeeper");
+
+        txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtUsername.setText("jTextField1");
+        txtUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 102), 1, true));
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
+
+        txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtPassword.setText("jPasswordField1");
+        txtPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 102), 1, true));
+
+        btnLogin.setBackground(new java.awt.Color(0, 51, 102));
+        btnLogin.setFont(new java.awt.Font("Century Gothic", 3, 14)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 192));
+        btnLogin.setText("Log In");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
+        btnDaftar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnDaftar.setForeground(new java.awt.Color(0, 51, 102));
+        btnDaftar.setText("Belum punya akun? Daftar di sini");
+        btnDaftar.setBorder(null);
+        btnDaftar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDaftarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnDaftar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(44, 44, 44)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(btnDaftar)
+                .addGap(43, 43, 43))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel1)))
+                .addGap(18, 88, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(174, 174, 174)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(222, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDaftarActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginView().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnDaftar;
+    public javax.swing.JButton btnLogin;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    public javax.swing.JPasswordField txtPassword;
+    public javax.swing.JTextField txtUsername;
+    // End of variables declaration//GEN-END:variables
 }

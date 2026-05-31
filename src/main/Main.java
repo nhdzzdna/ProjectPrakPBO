@@ -5,12 +5,12 @@ import controller.LoginController;
 import view.LoginView;
 
 public class Main {
-
     public static void main(String[] args) {
-
-        LoginView view =
-                new LoginView();
-
-        new LoginController(view);
+        // Pastikan aplikasi tidak mati saat window ditutup
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            LoginView view = new LoginView();
+            view.setVisible(true);
+            new LoginController(view);
+        });
     }
 }

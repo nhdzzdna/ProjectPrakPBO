@@ -6,55 +6,34 @@ import java.awt.*;
 
 public class DashboardView extends JFrame {
 
-    // ====================
-    // KOMPONEN PUBLIK
-    // (diakses oleh CredentialController)
-    // ====================
+    public JTable            tableCredential;
+    public DefaultTableModel tableModel;
+    public JTextField        txtSearch;
+    public JButton           btnTambah;
+    public JButton           btnUpdate;
+    public JButton           btnHapus;
+    public JButton           btnLogout;
+    public JLabel            lblClock;
+    public JLabel            lblTotal;
+    public JButton           menuDashboard;
+    public JButton           menuSemua;
+    public JButton           menuPengaturan;
+    public JButton           menuTentang;
+    public SemuaAkunView     semuaAkunView;
+    public PengaturanView    pengaturanView;
+    public TentangView       tentangView;
 
-    public JTable             tableCredential;
-    public DefaultTableModel  tableModel;
-
-    public JTextField         txtSearch;
-
-    public JButton            btnTambah;
-    public JButton            btnUpdate;
-    public JButton            btnHapus;
-    public JButton            btnLogout;
-
-    public JLabel             lblClock;
-    public JLabel             lblTotal;
-
-    // Menu sidebar (publik agar bisa diakses controller)
-    public JButton            menuDashboard;
-    public JButton            menuSemua;
-    public JButton            menuPengaturan;
-    public JButton            menuTentang;
-
-    // Sub-view halaman
-    public SemuaAkunView      semuaAkunView;
-    public PengaturanView     pengaturanView;
-    public TentangView        tentangView;
-
-    // Card layout untuk navigasi body
-    private JPanel            cardPanel;
-    private CardLayout        cardLayout;
+    private JPanel     cardPanel;
+    private CardLayout cardLayout;
 
     public static final String CARD_DASHBOARD  = "dashboard";
     public static final String CARD_SEMUA      = "semua";
     public static final String CARD_PENGATURAN = "pengaturan";
     public static final String CARD_TENTANG    = "tentang";
 
-    // ====================
-    // KONSTRUKTOR (backward-compatible: hanya namaUser)
-    // ====================
-
     public DashboardView(String namaUser) {
         this(namaUser, namaUser, "");
     }
-
-    // ====================
-    // KONSTRUKTOR LENGKAP
-    // ====================
 
     public DashboardView(String namaUser, String usernameUser, String emailUser) {
 
@@ -63,58 +42,50 @@ public class DashboardView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // ====================
         // COLOR
-        // ====================
-
-        Color tealColor  = new Color(0, 150, 136);
-        Color darkTeal   = new Color(0, 121, 107);
-        Color sideColor  = new Color(0, 121, 107);
+        Color navyColor  = new Color(0, 51, 102);
+        Color yellowColor = new Color(255, 255, 192);
         Color bodyColor  = new Color(245, 247, 250);
         Color white      = Color.WHITE;
         Color textGray   = new Color(100, 100, 100);
-        Color redColor   = new Color(220, 53, 69);
-        Color blueColor  = new Color(30, 136, 229);
+        Color redColor   = new Color(180, 50, 50);
+        Color blueColor  = new Color(30, 100, 180);
 
-        Font sideFont    = new Font("Poppins", Font.BOLD,  14);
-        Font normalFont  = new Font("Poppins", Font.PLAIN, 13);
-        Font titleFont   = new Font("Poppins", Font.BOLD,  22);
-        Font smallFont   = new Font("Poppins", Font.PLAIN, 12);
-
-        // ====================
-        // ROOT LAYOUT
-        // ====================
+        // FONT
+        Font sideFont   = new Font("Century Gothic", Font.BOLD,  14);
+        Font normalFont = new Font("Century Gothic", Font.PLAIN, 12);
+        Font titleFont  = new Font("Century Gothic", Font.BOLD,  22);
+        Font smallFont  = new Font("Century Gothic", Font.PLAIN, 11);
 
         setLayout(new BorderLayout());
 
         // ====================
         // SIDEBAR
         // ====================
-
         JPanel sidebar = new JPanel();
-        sidebar.setBackground(sideColor);
+        sidebar.setBackground(navyColor);
         sidebar.setPreferredSize(new Dimension(220, getHeight()));
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
         sidebar.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 
-        JLabel lblLogo = new JLabel("🔐 PassKeeper");
-        lblLogo.setFont(new Font("Poppins", Font.BOLD, 18));
-        lblLogo.setForeground(white);
+        JLabel lblLogo = new JLabel("PassKeeper");
+        lblLogo.setFont(new Font("Century Gothic", Font.BOLD, 18));
+        lblLogo.setForeground(yellowColor);
         lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel lblUser = new JLabel("👤 " + namaUser);
-        lblUser.setFont(new Font("Poppins", Font.PLAIN, 12));
-        lblUser.setForeground(new Color(200, 235, 232));
+        JLabel lblUser = new JLabel(namaUser);
+        lblUser.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+        lblUser.setForeground(new Color(200, 210, 230));
         lblUser.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JSeparator sep1 = new JSeparator();
         sep1.setForeground(new Color(255, 255, 255, 60));
         sep1.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
 
-        menuDashboard  = createSideMenu("🏠  Dashboard", sideFont, white);
-        menuSemua      = createSideMenu("📋  Semua Akun", sideFont, new Color(200, 235, 232));
-        menuPengaturan = createSideMenu("⚙️  Pengaturan", sideFont, new Color(200, 235, 232));
-        menuTentang    = createSideMenu("ℹ️  Tentang", sideFont, new Color(200, 235, 232));
+        menuDashboard  = createSideMenu("Dashboard",  sideFont, yellowColor);
+        menuSemua      = createSideMenu("Semua Akun", sideFont, new Color(200, 210, 230));
+        menuPengaturan = createSideMenu("Pengaturan", sideFont, new Color(200, 210, 230));
+        menuTentang    = createSideMenu("Tentang",    sideFont, new Color(200, 210, 230));
 
         sidebar.add(lblLogo);
         sidebar.add(Box.createRigidArea(new Dimension(0, 6)));
@@ -131,10 +102,10 @@ public class DashboardView extends JFrame {
         sidebar.add(menuTentang);
         sidebar.add(Box.createVerticalGlue());
 
-        btnLogout = new JButton("🚪  Logout");
+        btnLogout = new JButton("Logout");
         btnLogout.setFont(sideFont);
-        btnLogout.setForeground(new Color(255, 200, 200));
-        btnLogout.setBackground(new Color(180, 50, 50));
+        btnLogout.setForeground(yellowColor);
+        btnLogout.setBackground(redColor);
         btnLogout.setFocusPainted(false);
         btnLogout.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(220, 80, 80), 1),
@@ -146,9 +117,8 @@ public class DashboardView extends JFrame {
         sidebar.add(btnLogout);
 
         // ====================
-        // HALAMAN DASHBOARD
+        // DASHBOARD PANEL
         // ====================
-
         JPanel dashboardPanel = new JPanel(new BorderLayout());
         dashboardPanel.setBackground(bodyColor);
         dashboardPanel.setBorder(BorderFactory.createEmptyBorder(28, 32, 28, 32));
@@ -162,7 +132,7 @@ public class DashboardView extends JFrame {
 
         JLabel lblJudul = new JLabel("Dashboard");
         lblJudul.setFont(titleFont);
-        lblJudul.setForeground(new Color(30, 30, 30));
+        lblJudul.setForeground(navyColor);
 
         JLabel lblSub = new JLabel("Kelola dan lihat semua akun yang tersimpan");
         lblSub.setFont(smallFont);
@@ -172,12 +142,13 @@ public class DashboardView extends JFrame {
         headerLeft.add(lblSub);
 
         lblClock = new JLabel();
-        lblClock.setFont(new Font("Poppins", Font.PLAIN, 13));
+        lblClock.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         lblClock.setForeground(textGray);
 
         header.add(headerLeft, BorderLayout.WEST);
         header.add(lblClock,   BorderLayout.EAST);
 
+        // TOOLBAR
         JPanel toolbar = new JPanel(new BorderLayout(12, 0));
         toolbar.setOpaque(false);
         toolbar.setBorder(BorderFactory.createEmptyBorder(18, 0, 14, 0));
@@ -187,16 +158,16 @@ public class DashboardView extends JFrame {
         txtSearch.setPreferredSize(new Dimension(300, 40));
         txtSearch.setToolTipText("Cari platform / username...");
         txtSearch.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
+                BorderFactory.createLineBorder(navyColor, 1),
                 BorderFactory.createEmptyBorder(8, 12, 8, 12)
         ));
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
         btnPanel.setOpaque(false);
 
-        btnTambah = createActionButton("+ Tambah Akun", tealColor, white, normalFont);
-        btnUpdate = createActionButton("✏ Edit",         blueColor, white, normalFont);
-        btnHapus  = createActionButton("🗑 Hapus",       redColor,  white, normalFont);
+        btnTambah = createActionButton("+ Tambah Akun", navyColor,  yellowColor, normalFont);
+        btnUpdate = createActionButton("Edit",          blueColor,  white,       normalFont);
+        btnHapus  = createActionButton("Hapus",         redColor,   white,       normalFont);
 
         btnPanel.add(btnTambah);
         btnPanel.add(btnUpdate);
@@ -205,24 +176,22 @@ public class DashboardView extends JFrame {
         toolbar.add(txtSearch, BorderLayout.WEST);
         toolbar.add(btnPanel,  BorderLayout.EAST);
 
+        // TABLE
         String[] kolom = {"No", "Aplikasi / Akun", "Username", "Password", "Keterangan"};
-
         tableModel = new DefaultTableModel(kolom, 0) {
             @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+            public boolean isCellEditable(int row, int column) { return false; }
         };
 
         tableCredential = new JTable(tableModel);
         tableCredential.setFont(normalFont);
         tableCredential.setRowHeight(36);
-        tableCredential.setGridColor(new Color(230, 230, 230));
-        tableCredential.setSelectionBackground(new Color(200, 240, 238));
-        tableCredential.setSelectionForeground(new Color(0, 100, 90));
-        tableCredential.getTableHeader().setFont(new Font("Poppins", Font.BOLD, 13));
-        tableCredential.getTableHeader().setBackground(new Color(235, 248, 246));
-        tableCredential.getTableHeader().setForeground(new Color(0, 100, 90));
+        tableCredential.setGridColor(new Color(200, 210, 230));
+        tableCredential.setSelectionBackground(new Color(200, 220, 240));
+        tableCredential.setSelectionForeground(navyColor);
+        tableCredential.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 12));
+        tableCredential.getTableHeader().setBackground(navyColor);
+        tableCredential.getTableHeader().setForeground(yellowColor);
 
         tableCredential.getColumnModel().getColumn(0).setPreferredWidth(50);
         tableCredential.getColumnModel().getColumn(1).setPreferredWidth(160);
@@ -231,7 +200,7 @@ public class DashboardView extends JFrame {
         tableCredential.getColumnModel().getColumn(4).setPreferredWidth(280);
 
         JScrollPane scrollPane = new JScrollPane(tableCredential);
-        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
+        scrollPane.setBorder(BorderFactory.createLineBorder(navyColor, 1));
 
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.LEFT));
         footer.setOpaque(false);
@@ -252,29 +221,18 @@ public class DashboardView extends JFrame {
 
         dashboardPanel.add(centerArea, BorderLayout.CENTER);
 
-        // ====================
-        // SUB-VIEW LAINNYA
-        // ====================
-
+        // SUB-VIEW
         semuaAkunView  = new SemuaAkunView();
         pengaturanView = new PengaturanView(namaUser, usernameUser, emailUser);
         tentangView    = new TentangView();
 
-        // ====================
         // CARD LAYOUT
-        // ====================
-
         cardLayout = new CardLayout();
         cardPanel  = new JPanel(cardLayout);
-
         cardPanel.add(dashboardPanel, CARD_DASHBOARD);
         cardPanel.add(semuaAkunView,  CARD_SEMUA);
         cardPanel.add(pengaturanView, CARD_PENGATURAN);
         cardPanel.add(tentangView,    CARD_TENTANG);
-
-        // ====================
-        // ADD KE FRAME
-        // ====================
 
         add(sidebar,   BorderLayout.WEST);
         add(cardPanel, BorderLayout.CENTER);
@@ -282,28 +240,19 @@ public class DashboardView extends JFrame {
         setVisible(true);
     }
 
-    // ====================
-    // NAVIGASI PUBLIK
-    // ====================
-
     public void showCard(String name) {
         cardLayout.show(cardPanel, name);
         updateMenuStyle(name);
     }
 
     private void updateMenuStyle(String active) {
-        Color white  = Color.WHITE;
-        Color dimmed = new Color(200, 235, 232);
-
-        menuDashboard .setForeground(active.equals(CARD_DASHBOARD)  ? white : dimmed);
-        menuSemua     .setForeground(active.equals(CARD_SEMUA)      ? white : dimmed);
-        menuPengaturan.setForeground(active.equals(CARD_PENGATURAN) ? white : dimmed);
-        menuTentang   .setForeground(active.equals(CARD_TENTANG)    ? white : dimmed);
+        Color yellow = new Color(255, 255, 192);
+        Color dimmed = new Color(200, 210, 230);
+        menuDashboard .setForeground(active.equals(CARD_DASHBOARD)  ? yellow : dimmed);
+        menuSemua     .setForeground(active.equals(CARD_SEMUA)      ? yellow : dimmed);
+        menuPengaturan.setForeground(active.equals(CARD_PENGATURAN) ? yellow : dimmed);
+        menuTentang   .setForeground(active.equals(CARD_TENTANG)    ? yellow : dimmed);
     }
-
-    // ====================
-    // HELPER: sidebar menu button
-    // ====================
 
     private JButton createSideMenu(String text, Font font, Color fg) {
         JButton btn = new JButton(text);
@@ -319,10 +268,6 @@ public class DashboardView extends JFrame {
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         return btn;
     }
-
-    // ====================
-    // HELPER: action button
-    // ====================
 
     private JButton createActionButton(String text, Color bg, Color fg, Font font) {
         JButton btn = new JButton(text);
